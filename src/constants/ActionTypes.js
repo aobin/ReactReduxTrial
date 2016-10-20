@@ -1,0 +1,2 @@
+export const WEBAUTH_SIGNIN = 'REDIRECT_WEBAUTH';
+export const CHANGE_LANG = 'CHANGE_LANG';
