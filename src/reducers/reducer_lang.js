@@ -14,11 +14,12 @@ export const langDefault = {
  * @param action
  * @returns {*}
  */
-function lang(state = langDefault, action) {
+function lang(state = langDefault, action)
+{
 
     switch (action.type) {
         case CHANGE_LANG:
-            return {...langDefault, lang : "fr_ca"};
+            return {...langDefault, lang : action.text};
         default:
             return {...langDefault, lang : "en_us"};
     }
