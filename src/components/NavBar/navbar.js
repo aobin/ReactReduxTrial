@@ -13,8 +13,17 @@ export class NavBar extends React.Component
         this.showCountry = this.showCountry.bind(this);
     }
 
-    showCountry() {
-        // const {countryList} = this.props;
+    showCountry(event)
+    {
+        event.preventDefault();
+        var src = event.target || window.event.srcElement;
+        console.log("event src" );
+        console.log(src);
+        console.log("src class name" );
+        console.log(src.className);
+        console.log("data-country" );
+        console.log(src.getAttribute("data-country"));
+
         const {countryList} = this.props;
         console.log("countryList from NavBar props:" );
         console.log(countryList);
@@ -26,7 +35,6 @@ export class NavBar extends React.Component
         {
             this.props.hideCountryList();
         }
-
 
     }
 
@@ -49,9 +57,8 @@ export class NavBar extends React.Component
                             <ul className="options-right">
                                 <li id="gnbCountrySelectorId" className="has-dropdown countryFlag us">
                                     <a>
-                                        <span className="countrySelectorIcon" onClick={this.showCountry}></span>
-                                        <span name="gnbCountrySelector" id="gnbSelectCountry" tabIndex="210" data-ele-id="countrySelector"
-                                              className="hide-small select_country">
+                                        <span className="countrySelectorIcon" data-country="us" onClick={this.showCountry}></span>
+                                        <span name="gnbCountrySelector" id="gnbSelectCountry" tabIndex="210" data-ele-id="countrySelector" className="hide-small select_country">
 					                        United States (English)
 					                    </span>
                                         <span className="countrySelectorDropdownIcon"></span>

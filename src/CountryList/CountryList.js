@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import ReactDOM  from "react-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-// import {showCountryList} from "../../actions/CountryListAction";
 
 export class CountryList extends React.Component
 {
@@ -9,24 +9,36 @@ export class CountryList extends React.Component
     constructor(props)
     {
         super(props);
-        let {countryList} = this.props;
-        console.log("countryList in CountryList constructor");
-        console.log(countryList);
+
     }
 
     componentDidMount()
     {
-        let countryListConponent = document.getElementsByClassName("countrySelector list")[0];
-        console.log("countryListConponent");
-        console.log(countryListConponent);
-        console.log("countryListConponent.style");
-        console.log(countryListConponent.style);
+        //let countrySelector = this.refs["countrySelector"].getDOMNode();
+        let countrySelector = ReactDOM.findDOMNode(this.refs["countrySelector"])
+        console.log("countrySelector: ");
+        console.log(countrySelector);
 
+    }
+
+    produceCountryLiList(countryArray)
+    {
+        let countryLiList=new Array();
+        for(let i =0;i<countryArray.length;i++)
+        {
+            let country = countryArray[i];
+
+            let countryUlComponent=<li className={country.className}>
+                <a>{country.lable}</a>
+            </li>;
+            countryLiList.push(countryUlComponent);
+        }
+
+        return countryLiList;
     }
 
     render()
     {
-
         let {countryList}=this.props;
         console.log("countrylist from CountryList render: ");
         console.log(countryList);
@@ -43,13 +55,18 @@ export class CountryList extends React.Component
             console.log("doesn't find CountryList,can not set display");
         }
 
-        return <div className="countrySelector list">
+        let countryArray = [{className:"au countryFlag countryIconLi countryLeftItem",countryCode:"au",languageCode:"en",lable:"Australia (English)"},
+                             {className:"be countryFlag countryIconLi countryLeftItem",countryCode:"be",languageCode:"fr",lable:"Belgique (Français)"}
+                            ];
+        console.log(countryArray.length);
+        let countryLiList = this.produceCountryLiList(countryArray);
+
+        return <div className="countrySelector list" ref="countrySelector">
             <span className="countrySelectorMenu arrow"></span>
             <div className="countrylist doubleColumn">
                 <ul className="countrylistcol1">
-
-
-                    <li className="au countryFlag countryIconLi countryLeftItem">
+                    {countryLiList}
+                   {/* <li className="au countryFlag countryIconLi countryLeftItem">
                         <a id="GNBLocale_en_AU" tabIndex="211">Australia (English)</a>
                     </li>
 
@@ -181,7 +198,7 @@ export class CountryList extends React.Component
 
                     <li className="jp countryFlag countryIconLi countryRightItem">
                         <a id="GNBLocale_ja_JP" tabIndex="237">日本 (日本語)</a>
-                    </li>
+                    </li>*/}
 
 
                 </ul>
